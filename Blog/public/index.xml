@@ -6,10 +6,28 @@
     <description>Recent content on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 21 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The joys of joining</title>
+      <link>/2020/08/21/the-joys-of-joining/</link>
+      <pubDate>Fri, 21 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/08/21/the-joys-of-joining/</guid>
+      <description>The joys of mergingI am almost afraid to admit that for the longest time I have been struggling with what seems like one of the more basic components of R and data wrangling: merging/joining or binding rows/columns of multiple dataframes. Especially recently, when I had to compare and QC eventDates and times between two datasets was I struggling, and I feel like it took me longer than expected – and this was not the first time this happened.</description>
+    </item>
+    
+    <item>
+      <title>Fourth attempt</title>
+      <link>/2020/05/26/fourth-attempt/</link>
+      <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/05/26/fourth-attempt/</guid>
+      <description>Fourth attempt at personal blog</description>
+    </item>
     
     <item>
       <title>Second test</title>
@@ -27,6 +45,15 @@
       
       <guid>/2020/05/25/what-is-slug/</guid>
       <description>Trying to figure out what slug is?</description>
+    </item>
+    
+    <item>
+      <title>Third attempt</title>
+      <link>/2020/05/25/third-attempt/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/05/25/third-attempt/</guid>
+      <description>Lalala</description>
     </item>
     
     <item>
