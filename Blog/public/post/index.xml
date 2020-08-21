@@ -6,26 +6,21 @@
     <description>Recent content in Posts on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-develop
     <lastBuildDate>Fri, 21 Aug 2020 00:00:00 +0000</lastBuildDate>
-master
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-develop
       <title>The joys of joining</title>
       <link>/2020/08/21/the-joys-of-joining/</link>
       <pubDate>Fri, 21 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/08/21/the-joys-of-joining/</guid>
-      <description>The joys of merging
-I am almost afraid to admit that for the longest time I have been struggling with what seems like one of the more basic components of R and data wrangling: merging/joining or binding rows/columns of multiple dataframes. Especially recently, when I had to compare and QC eventDates and times between two datasets was I struggling, and I feel like it took me longer than expected – and this was not the first time this happened.</description>
+      <description>The joys of mergingI am almost afraid to admit that for the longest time I have been struggling with what seems like one of the more basic components of R and data wrangling: merging/joining or binding rows/columns of multiple dataframes. Especially recently, when I had to compare and QC eventDates and times between two datasets was I struggling, and I feel like it took me longer than expected – and this was not the first time this happened.</description>
     </item>
     
     <item>
-master
       <title>Fourth attempt</title>
       <link>/2020/05/26/fourth-attempt/</link>
       <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
@@ -35,7 +30,6 @@ master
     </item>
     
     <item>
-develop
       <title>Sixth attempt?</title>
       <link>/2020/05/26/sixth-attempt/</link>
       <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
@@ -45,7 +39,6 @@ develop
     </item>
     
     <item>
-master
       <title>Second test</title>
       <link>/2020/05/25/second-test/</link>
       <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
@@ -88,11 +81,9 @@ master
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
       <guid>/2015/07/23/hello-r-markdown/</guid>
-      <description>R Markdown
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
+      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
 You can embed an R code chunk like this:
-summary(cars)
-## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
     </item>
     
     <item>
