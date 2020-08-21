@@ -17,6 +17,7 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 <div class = "blue">
 
 **Most important takeaway message**: Using rbind (binds rows) and cbind (binds columns) it is always essential that you have the same amount and headings of columns (rbind), or the same amount of rows (cbind). Usually that is not very realistic, but instead you want to merge or join dataframes together based on common values in a given column. In that case, use the merge() function or one from the join() family, especially left_join() is very useful!
+
 </div>
 
 Let's first create two dataframes. These dataframes have partially similar column headers, and also similarities within the dataframe itself. 
