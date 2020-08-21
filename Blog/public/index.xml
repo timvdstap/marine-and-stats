@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>Sixth attempt?</title>
+      <link>/2020/05/26/sixth-attempt/</link>
+      <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/05/26/sixth-attempt/</guid>
+      <description>Another attempt, not sure why it’s not working…</description>
+    </item>
+    
+    <item>
       <title>Second test</title>
       <link>/2020/05/25/second-test/</link>
       <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
@@ -72,7 +81,8 @@
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
       <guid>/about/</guid>
-      <description>This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
+      <description>This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.
+Making edits - so this is where personal &amp;ldquo;About&amp;rdquo; information of the author of the website [me!] would be presented?</description>
     </item>
     
     <item>
