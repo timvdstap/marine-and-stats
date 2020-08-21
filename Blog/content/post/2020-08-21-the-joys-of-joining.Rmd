@@ -1,0 +1,124 @@
+---
+title: The joys of joining
+author: Tim van der Stap
+date: '2020-08-21'
+slug: the-joys-of-joining
+categories: []
+tags: []
+---
+
+# The joys of merging
+
+I am almost afraid to admit that for the longest time I have been struggling with what seems like one of the more basic components of R and data wrangling: merging/joining or binding rows/columns of multiple dataframes. Especially recently, when I had to compare and QC eventDates and times between two datasets was I struggling, and I feel like it took me longer than expected -- and this was not the first time this happened. If you've had to look it up at least three times already, you may as well write a Blog post about it! Hence, this blog post, because perhaps there's other people out there that struggle!
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+**Most important takeaway message**: Using rbind (binds rows) and cbind (binds columns) it is always essential that you have the same amount and headings of columns (rbind), or the same amount of rows (cbind). Usually that is not very realistic, but instead you want to merge or join dataframes together based on common values in a given column. In that case, use the merge() function or one from the join() family, especially left_join() is very useful!
+</div>
+
+Let's first create two dataframes. These dataframes have partially similar column headers, and also similarities within the dataframe itself. 
+
+``` {r, eval = FALSE}
+marineMammal <- data.frame(speciesID = c(1:5),
+                           scientificName = c("O.orca", "M.novaeangliae", "P.vitulina", "E.robustus", "B.physalus"),
+                           count = c(10, 2, 27, 4, 1))
+
+speciesObs <- data.frame(speciesID = c(6:10),
+                         scientificName = c("O.orca", "H.leucocephalus", "P.vitulina", "H.bachmani", "P.haliaetus"),
+                         number = c(10, 83, 7, 14, 7))
+```
+
+Few things to note before we start comparing rbind() and the join() functions. These are obviously very simplified dataframes. As you can see, most of the column headers are the same, although column name `count` is different between the two dataframes. So let's first try the rbind() function!
+
+## rbind
+
+The rbind (row-bind) function does exactly what it says, it binds rows together. In other words, it can be used to combine several dataframes _vertically_, i.e. it stacks them. It can be used to combine several vectors, matrices and/or dataframes. The basic rbind function is `rbind(original_data, new_data`.Let's give that a try for our two dataframes. 
+
+``` {r, eval = FALSE}
+totalSpp <- rbind(marineMammal, speciesObs)
+```
+
+The error message here (`Error in match.names(clabs, names(xi)): names do not match previous names` indicates that in order to vertically combine the two dataframes (i.e. stack them), you have to make sure that your column headers are all similar. In our example, the name of our third column differs (`count` vs. `number`), although they do represent the same data. Thankfully it's easy enough to rename a column header:
+
+``` {r, eval = FALSE}
+marineMammal <- marineMammal %>% rename(number = count)
+totalSpp <- rbind(marineMammal, speciesObs)
+```
+
+As you can see, the two dataframes are joined vertically (stacked). The function cbind() works in a similar way, but rather than dataframes being added vertically, they are added horizontally. For cbind() to work, you need both dataframes to have a similar number of rows.
+
+Now what would happen if for both dataframes, the `speciesID` ran from 1 to 5. This would also imply that the data entry for Orcinus orca is similar between the two datasets. Does rbind automatically remove this duplicate row? Let's find out!
+
+``` {r, eval = FALSE}
+speciesObs$speciesID <- c(1:5)
+speciesObs <- speciesObs %>% dplyr::rename(count = number)
+O_orca <- rbind(marineMammal, speciesObs)
+```
+
+As you can tell, it does not remove the duplicate row. This is not necessarily a bad things, but definitely something to take into account when you use the rbind function. 
+
+One way to work around the necessity both dataframes needing to have the same amount of rows, or the same column headers, is to use e.g. rbind.fill(). This function is **not ideal**, as it requires `plyr`, but this package masks objects from `dplyr` which I personally consider the go-to data wrangling package. Rbind.fill does the same as rbind but fills in missing columns with NA. The function creates a column for each column name that appears either in the first or second data matrix. If a column exists in both data frames, it is row binded as usual. However, if a column is missing in one of the two data frames, the empty cells are replaced with `NA`. 
+
+``` {r, eval = FALSE}
+allSpp <- plyr::rbind.fill(marineMammal, speciesObs)
+```
+
+## Merge or join function
+
+A much better alternative is to use a function from the join() family. The basic function here again is `*_join(original_data, new_data)`. I've used an asterisk here to indicate there are multiple function within the join() family, which we'll discuss. I believe join() is _very_ similar to the merge() function, but personally I find the join() function a little easier to wrap my tiny brain around! However, if someone knows reasons to use merge() over one of the join() functions, or can explain to me how they are different, I'm all ears. 
+
+It is the different join functions are the ones that have confused me the most over the years, as I never seem to know which one to pick. It often happens that you have two large datasets where there are numerous similar columns. If that's the case, rather than use merge and select all the columns that you want to join or merge by, it can be easier to use one of the join functions. Section 13.4.3. of R for Data Science has really helped me understand the differences between the inner_join and three outer_join functions (left_join, right_join and full_join). These are typically called the _mutating joins_. 
+
+* An inner join (`inner_join()`)keeps observations that appear in both tables;
+* An outer join keeps observations that appear in at least one of the tables, there are three outer joins:
+    - a **left join** (`left_join()`) keeps all observations in dataframe x
+    - a **right join** (`right_join()`) keeps all observations in dataframe y
+    - a **full join** (`full_join()`) keeps all observations in both dataframes x and y. 
+
+The most commonly used join is the left_join: you use this whenever you look up an additional data from another table, because it preserves the original observations even when there isn't a match. As recommended by the book, the left join should be your default join: use it unless you have a strong reason to prefer one of the others. Therefore, we will explore the left_join in a bit more depth. 
+
+Left_join() returns all rows from dataframe x, and all columns from dataframes x and y. Rows in x with no match in y will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned. So let's put the left_join in practice with our two small dataframes to see exactly what it does: 
+
+``` {r left_join, eval = FALSE}
+left_join_df <- dplyr::left_join(marineMammal, speciesObs, by = "speciesID")
+```
+
+The only columns that have to have similar names are those that you want to join by (in this case, `speciesID`). If you don't specify by which column you want to join, it will do a natural join, using all the variables with common names across the two tables, and it will spew out a list of the variables by which it joined. 
+
+Let's look at another example:
+
+``` {r, eval = FALSE}
+df1 = data.frame(CustomerID = c(1:6), Product = c("Oven", "Television", "Mobile", "WashingMachine", "Lightings", "Ipad"))
+df2 = data.frame(CustomerID = c(2,4,6,7,8), State = c("California", "New York", "Ohio", "Texas", "Indiana"))
+
+df <- left_join(df1, df2, by = "CustomerID")
+```
+
+This example too shows that dataframe x (df1), the 'original', remains intact, and data from dataframe y (df2) gets joined where there is an overlap in `CustomerID`. This left_join function is extremely useful when one dataframe has information missing regarding e.g. location, and this information is recorded in another dataframe of the same survey.
+
+There are also two functions within the join() family that are considered _filtering_ joins: 
+
+* semi_join() returns all rows from dataframe x where there are matching values with dataframe y, keeping just columns from dataframe x. A semi_join() looks a lot like the inner_join() function, but is different from the inner_join() because an inner_join() will return one row of dataframe x for each matching row with dataframe y, where a semi join will never duplicate rows of dataframe x.
+* anti_join() returns all rows from dataframe x where there are not matching values in dataframe y, keeping just columns from dataframe x.
+
+Let's put both into an example:
+
+``` {r, eval = FALSE}
+ex_semi_join <- dplyr::semi_join(marineMammal, speciesObs)
+
+ex_anti_join <- dplyr::anti_join(marineMammal, speciesObs)
+```
+
+Dataframe `ex_semi_join` now contains only one row - that for O.orca, because that row is the same between the two dataframes. Dataframe `ex_anti_join` contains four rows, but _only_ those from the first dataframe (marineMammal), where there is no match with dataframe y (speciesObs). As expected, the row for O.orca is omitted (as that's similar between the two dataframes)!
+
+So, _when do we use rbind() and when do we use one of the join() functions?_ 
+**rbind()**: I would use rbind (or cbind) when you want to combine two dataframes that have the same number of columns depicting the same information. Remember, for rbind to work the number of columns and their headers need to be the same, but as long as the values in the column reflect the same data gathered, you can always change the name of one of the columns. The function does exactly what it says, but no more: it binds the rows of dataframes together. Cbind does the same, but binds the columns of two dataframes together. 
+
+**merge and join**: In general, I would recommend merge or the family of join() functions because you have a lot more options. Especially left_join() is probably one of the functions that is most useful in data wrangling. 
+
+Useful links:
+[StatisticsGlobe](https://statisticsglobe.com/rbind-in-r-example-vector-data-frame-fill-columns/)
+[DataScienceMadeSimple](http://www.datasciencemadesimple.com/join-in-r-merge-in-r/)
