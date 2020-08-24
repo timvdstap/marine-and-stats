@@ -1,0 +1,104 @@
+---
+title: Funky package - lubridate
+author: Tim van der Stap
+date: '2020-08-24'
+slug: funky-package-lubridate
+categories: []
+tags: []
+---
+
+Hi everyone, the second package I figured useful to discuss is the *lubridate* package. We've all had those data sets where the time or date needs to be formatted, and they always end up being a massive head-ache (... or is just me?). The *lubridate* package is part of the `tidyverse` universe, and makes it relatively easy to format dates, years, time and timezones to a specific standard. The vignette for the package can be found [here](https://cran.r-project.org/web/packages/lubridate/lubridate.pdf).
+
+I figured I would just create a few "mock" datasets, and use functions within the lubridate package to standardize the dates, times and timezones in a particular way that might be useful to you all. Ideally in the future I'd like to link this blog to some of the code wrangling I've done that involved times, dates, and timezones - for a more practical example.
+
+It seems like every scientists records dates and times differently. I've seen people put them all in the same column (e.g. Feb 6 2020 10:00 AM), split the date and time in two different columns, have time in 24-hr clock vs AM/PM (e.g. 17:00 or 5:00 PM). Heck, I've even seen people record Year, Month, Day, Hour, Minutes and Seconds in six separate columns. There's no right or wrong way to record your dates and times, and no one way to format it. It seems everyone prefers a different style (Feb 16 2020, 02/16/2020, 02-16-2020, 16-02-20), so I just wanted to run a few mock datasets, and show how the lubridate package can help formatting it the way you want. 
+
+__Please note:__ There are definitely other methods to work with dates and times, also available in base R (i.e., the `strptime` function and `as.Date` function). I'd recommend using the `lubridate` package to complement your knowledge of working with dates and times, rather than change/replace it. 
+
+For all below samples, we'll need the package lubridate:
+
+``` {r download_package, echo = TRUE, results = "hide"}
+library(lubridate)
+```
+
+A few links that have significantly helped me: 
+[5 Most Practically Useful Operations When Working With Date and Time in R](https://blog.exploratory.io/5-most-practically-useful-operations-when-working-with-date-and-time-in-r-9f9eb8a17465)
+[Abbreviations dates & times](https://www.stat.berkeley.edu/~s133/dates.html)
+
+## Dataset 1 - Only date:
+
+Let's create a dataset with a column called `Date`, where the scientist recorded only the date in a format like "Feb 16 2020" (`character`) and we'd like to transform it to day-month-year (us Europeans love that stuff!).
+
+``` {r data, eval = TRUE}
+mock.date <- data.frame(number = 1:3,
+                        gender = c("male", "male", "female"),
+                        animals = c("dog", "cat", "dog"),
+                        dates = c("Feb 16, 2020", "September 3, 2020", "May 29, 2019"),
+                        stringsAsFactors = FALSE)
+
+mock.date$dates_rev <- format(mdy(mock.date$dates), "%d-%m-%Y")
+```
+
+__Important__: the function name `mdy()` has to correspond to your _input_ format (month day year), not your desired _output_. You can see that with the input, it doesn't matter whether the month gets abbreviated, or written in full. If you don't include the function `format()`, the output would by default be Year-month-day (again, all about preferences). Additionally, when looking at the structure of this new column using the `str` function, you see that it's no longer a character, but in a `Date, format`.
+
+You can choose how you want the date to be portrayed. To have the month written in abbreviated form, use `%b` instead of 'numerically' `%m`. To have the month written out in full, use `%B`. To use a 2-digit numeric form for the year, use `%y`. 
+
+## Mock date & time (24-hr clock)
+
+In our second example, suppose date and time were recorded in two separate columns, where date is recorded as e.g. August 18, '20 (so, as `%B %d %y`), and the time is recorded on a 24-hr clock, only hours and minutes. We'll use the same data set as previously, with an added column for time. 
+
+``` {r data2, eval = TRUE}
+mock.datetime <- data.frame(number = 1:3,
+                        gender = c("male", "male", "female"),
+                        animals = c("dog", "cat", "dog"),
+                        dates = c("Feb 16, 2020", "September 3, 2020", "May 29, 2019"),
+                        times = c("12:21", "03:17", "20:55"),
+                        stringsAsFactors = FALSE)
+```
+
+With the `str` function we see that both dates and times are `characters`. To create a column where date and time are combined, and in the format of `DateTime`, you can use the following: 
+
+``` {r data2_datetime, eval = TRUE}
+mock.datetime$dateTime <- paste(mock.datetime$dates, mock.datetime$times, sep = " ")
+# Convert this to class DateTime: 
+mock.datetime$dateTime <- lubridate::mdy_hm(mock.datetime$dateTime)
+# Again, the default output of this will be Year-month-day. You can use format() to reorder if you so wish (see above). Also, if you want to get rid of the seconds displayed, you'll have to format:
+mock.datetime$dateTime <- format(mock.datetime$dateTime, format = "%Y-%m-%d %H:%M")
+```
+
+Using the `format` function this way, you'll notice that the class of $dateTime becomes a `character` again. To convert this back to POSIXct, use the following line of code, which of course can also be inserted in the above function in a pipeline. 
+
+### To do: using the code below inserts the seconds again... is there a way that these can be removed without compromising the class of the string?
+
+``` {r posixct, eval=TRUE}
+mock.datetime$dateTime <- as.POSIXct(mock.datetime$dateTime)
+```
+
+You might be wondering: "Tim, why not just use the paste function, and just use the format function if you want to reorder the date or time?" Using the `mdy_hm` function (again, because the input is month, day, year, and hour, minutes), the class for $dateTime becomes `POSIXct`. 
+
+The reason why this might be a preferred class over e.g. character, is because it'll be easier to extract dates/times, and do calculations with it, i.e., if you want to know how many have days have passed since sampling event x. 
+
+Should you ever wish to round your date/time, `lubridate` has an awesome function called `round_date`, which can also be used for times (heck - it should perhaps be called `round_datetime`!)
+
+``` {r round_minutes, eval = TRUE}
+# To round to the nearest minute, use: 
+mock.datetime$dateTime <- lubridate::round_date(mock.datetime$dateTime, unit = "minute")
+```
+
+Perhaps your audience would prefer you to display the time in the AM/PM format. I feel like the `format` function works best here (and I'm not sure if `lubridate` actually has a function to convert military time to the 12-hr clock).
+
+``` {r time_am, eval = TRUE}
+mock.datetime$NewTimes <- format(mock.datetime$dateTime, format = "%Y-%m-%d %I:%M %p")
+```
+
+And of course this works from 12-hr clock to military time as well:
+
+``` {r time_military, eval = TRUE}
+mock.datetime$MilitaryTime <- lubridate::parse_date_time(mock.datetime$NewTimes, "%Y-%m-%d %I:%M %p")
+```
+
+Few things to note here: when converting the format to or from the 12-hr clock, instead of using `%H` to depict the hours, you need to use `%I`. In addition, you need to add `%p`. Mind you, with the `lubridate` package, it automatically converts from AM/PM to 24-hr time. 
+
+## Finally: timezones...
+
+OlsonNames()

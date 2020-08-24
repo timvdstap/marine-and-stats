@@ -20,12 +20,6 @@ The package can do some other things, like create frequency tables and crosstabs
 
 First things first, we need to install and load the package in _R_. We also load the _dplyr_ package because we'll be working with pipes as well.
 
-``` {r load_janitor, message=FALSE}
-install.packages("janitor")
-library(janitor)
-library(dplyr)
-```
-
 The first function to examine is *clean_names()*. This function works great in a pipeline `%>%` and can be used when reading in the data. It handles column names that are "non-R-friendly" (i.e., have spaces or have special cases), and makes them more R-friendly. *Janitor*:
 
   * Returns names with only lowercase letters and separated by _. 
@@ -40,7 +34,7 @@ df_test <- as.data.frame(matrix(ncol=8))
 names(df_test) <- c("firstColumn", "#_2Column", "why [ml/L]",
                     "% good columns (2009)", "d13CVPDB (‰)", "Total N (µg)",
                     "DO.[ml/L]", "DO.[ml/L]")
-df_test %>% clean_names()
+df_test <- df_test %>% janitor::clean_names()
 ```
 
 Now notice that while these column names are more R-friendly, they're not completely similar to the input. For example, the microgram gets tidied to mg, and the L is no longer capitalized. However, I like how it handles (square) brackets and spacing, and personally I think it looks better than what base R produces:
