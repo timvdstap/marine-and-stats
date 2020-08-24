@@ -1,0 +1,63 @@
+---
+title: Janitor package
+author: Tim van der Stap
+date: '2020-08-24'
+slug: janitor-package
+categories: []
+tags: []
+---
+
+
+
+<pre class="r"><code>library(dplyr)
+library(janitor)</code></pre>
+<p>Hello all! I figured it could be beneficial to explore various packages that are potentially useful in examining and tidying data. Given that I am still very much a novice when it comes to <em>R</em>, it would be great to understand how <em>R</em> can assist in data wrangling. I would much appreciate feedback and suggestions of other packages that can be useful for this purpose.</p>
+<div id="janitor-package" class="section level1">
+<h1>Janitor package</h1>
+<p>The first package I’d like to explore and discuss is the <em>janitor</em> package. The vignette for this package can be found <a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html">here</a> but I just want to go over the main functions that this package offers, which are:</p>
+<ol style="list-style-type: decimal">
+<li>format data frame column names; and</li>
+<li>identify and remove duplicate rows or columns.</li>
+</ol>
+<p>The package can do some other things, like create frequency tables and crosstabs, but I am not familiar with their use so I’ll not discuss them.</p>
+<p>First things first, we need to install and load the package in <em>R</em>. We also load the <em>dplyr</em> package because we’ll be working with pipes as well.</p>
+<p>The first function to examine is <em>clean_names()</em>. This function works great in a pipeline <code>%&gt;%</code> and can be used when reading in the data. It handles column names that are “non-R-friendly” (i.e., have spaces or have special cases), and makes them more R-friendly. <em>Janitor</em>:</p>
+<ul>
+<li>Returns names with only lowercase letters and separated by _.</li>
+<li>Handles special cases and spaces;</li>
+<li>Converts e.g. % to percent, and # to number;</li>
+<li>In the case of duplicated names, adds a number</li>
+</ul>
+<p>However, it has to be said that <em>this package is not an all-powerful solution to difficult column names, but definitely a start</em>. To showcase it’s use, but also it’s limitations, let’s create a dataframe with difficult column names:</p>
+<pre class="r"><code>df_test &lt;- as.data.frame(matrix(ncol=8))
+names(df_test) &lt;- c(&quot;firstColumn&quot;, &quot;#_2Column&quot;, &quot;why [ml/L]&quot;,
+                    &quot;% good columns (2009)&quot;, &quot;d13CVPDB (‰)&quot;, &quot;Total N (µg)&quot;,
+                    &quot;DO.[ml/L]&quot;, &quot;DO.[ml/L]&quot;)
+df_test &lt;- df_test %&gt;% janitor::clean_names()</code></pre>
+<p>Now notice that while these column names are more R-friendly, they’re not completely similar to the input. For example, the microgram gets tidied to mg, and the L is no longer capitalized. However, I like how it handles (square) brackets and spacing, and personally I think it looks better than what base R produces:</p>
+<pre class="r"><code>tidy_names &lt;- df_test %&gt;% clean_names()
+data.frame(dirty_names = make.names(names(df_test)), tidy_names = colnames(tidy_names))</code></pre>
+<pre><code>##                 dirty_names                tidy_names
+## 1              first_column              first_column
+## 2            number_2column            number_2column
+## 3                  why_ml_l                  why_ml_l
+## 4 percent_good_columns_2009 percent_good_columns_2009
+## 5                  d13cvpdb                  d13cvpdb
+## 6                total_n_mg                total_n_mg
+## 7                   do_ml_l                   do_ml_l
+## 8                 do_ml_l_2                 do_ml_l_2</code></pre>
+<p>It will be up to user to decide whether the package is useful (and necessary) to tidy column names in the dataframe.</p>
+<div id="remove_empty" class="section level2">
+<h2>remove_empty()</h2>
+<p>Aside from the <strong>clean_names</strong> function, another function within this package I’d like to point out is the <code>remove_empty()</code> function. It automatically gets rid of any empty rows or columns, and can be included in the pipeline when importing the data.</p>
+<pre class="r"><code>df &lt;- read_excel(&quot;dataframe.xlsx&quot;) %&gt;% clean_names() %&gt;% remove_empty()</code></pre>
+<p>OR</p>
+<pre class="r"><code>df &lt;- janitor::remove_empty(dataframe, which = c(&quot;rows&quot;, &quot;cols&quot;))
+# If &quot;which&quot; is not specified, it defaults to both rows and cols. </code></pre>
+</div>
+<div id="get_dupes" class="section level2">
+<h2>get_dupes()</h2>
+<p>This function within the <em>janitor</em> package can be used to examine duplicate records within a column. In a tidy dataframe you might want to have unique IDs or entries. <code>get_dupes()</code> returns the records and a count of the duplicates so you can examine them. <code>get_dupes()</code> returns a data frame with the full records where the specified variables have duplicated values, as well as a column <code>dupe_count</code> indicating the number of rows that share the duplication. A great way to examine whether you have any duplicates if you weren’t expecting any!</p>
+<pre class="r"><code>df %&gt;% get_dupes(column_name)</code></pre>
+</div>
+</div>
