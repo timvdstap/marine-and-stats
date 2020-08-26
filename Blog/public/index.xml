@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Marine and Statistical Analyses</title>
+    <title>A Hugo website</title>
     <link>/</link>
-    <description>Recent content on Marine and Statistical Analyses</description>
+    <description>Recent content on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 24 Aug 2020 00:00:00 +0000</lastBuildDate>
@@ -100,8 +100,8 @@ Janitor packageThe first package I’d like to explore and discuss is the janit
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
       <guid>/about/</guid>
-      <description>Hi everyone,
-My name is Tim van der Stap, and I am a marine scientist with the Hakai Institute, located on Quadra Island / Calvert Island in beautiful British Columbia! My passion lies in studying marine ecosystems, with a particular interest in the role that marine mammals play in them, and in quantitative analyses. I hold an M.Sc in Biology from the Wageningen University and Research Center in the Netherlands, with a specialization in Marine Biology.</description>
+      <description>This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.
+Making edits - so this is where personal &amp;ldquo;About&amp;rdquo; information of the author of the website [me!] would be presented?</description>
     </item>
     
     <item>
