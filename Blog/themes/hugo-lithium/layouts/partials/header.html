@@ -2,6 +2,8 @@
 <html lang="{{ .Site.LanguageCode }}">
   <head>
     <img src=/images/breaching_sperm_whale_calf.png>
+    {{ $image := $resource.Fit "600x400"}}
+    
     {{ partial "head.html" . }}
   </head>
   <body>
