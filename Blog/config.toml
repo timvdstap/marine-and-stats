@@ -1,6 +1,7 @@
 baseurl = "/"
 languageCode = "en-us"
-title = " "
+DefaultContentLanguage = "en"
+title = "Marine and Statistical Analyses"
 theme = "hugo-lithium"
 googleAnalytics = ""
 disqusShortname = ""
