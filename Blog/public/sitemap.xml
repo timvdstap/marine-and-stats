@@ -4,14 +4,11 @@
   
   <url>
     <loc>/</loc>
-develop
     <lastmod>2020-08-21T00:00:00+00:00</lastmod>
- master
   </url>
   
   <url>
     <loc>/post/</loc>
-develop
     <lastmod>2020-08-21T00:00:00+00:00</lastmod>
   </url>
   
@@ -19,7 +16,14 @@ develop
     <loc>/2020/08/21/the-joys-of-joining/</loc>
     <lastmod>2020-08-21T00:00:00+00:00</lastmod>
   </url>
-master
+  
+  <url>
+    <loc>/2020/05/26/fourth-attempt/</loc>
+    <lastmod>2020-05-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2020/05/26/sixth-attempt/</loc>
     <lastmod>2020-05-26T00:00:00+00:00</lastmod>
   </url>
   
