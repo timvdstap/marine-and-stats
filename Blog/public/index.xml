@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>A Hugo website</title>
+    <title>Marine and Statistical Analyses</title>
     <link>/</link>
-    <description>Recent content on A Hugo website</description>
+    <description>Recent content on Marine and Statistical Analyses</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Funky package - lubridate</title>
+      <link>/2020/08/24/funky-package-lubridate/</link>
+      <pubDate>Mon, 24 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/08/24/funky-package-lubridate/</guid>
+      <description>Hi everyone, the second package I figured useful to discuss is the lubridate package. We’ve all had those data sets where the time or date needs to be formatted, and they always end up being a massive head-ache (… or is just me?). The lubridate package is part of the tidyverse universe, and makes it relatively easy to format dates, years, time and timezones to a specific standard. The vignette for the package can be found here.</description>
+    </item>
+    
+    <item>
+      <title>Janitor package</title>
+      <link>/2020/08/24/janitor-package/</link>
+      <pubDate>Mon, 24 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/08/24/janitor-package/</guid>
+      <description>library(dplyr)library(janitor)Hello all! I figured it could be beneficial to explore various packages that are potentially useful in examining and tidying data. Given that I am still very much a novice when it comes to R, it would be great to understand how R can assist in data wrangling. I would much appreciate feedback and suggestions of other packages that can be useful for this purpose.
+Janitor packageThe first package I’d like to explore and discuss is the janitor package.</description>
+    </item>
     
     <item>
       <title>The joys of joining</title>
@@ -81,8 +100,8 @@
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
       <guid>/about/</guid>
-      <description>This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.
-Making edits - so this is where personal &amp;ldquo;About&amp;rdquo; information of the author of the website [me!] would be presented?</description>
+      <description>Hi everyone,
+My name is Tim van der Stap, and I am a marine scientist with the Hakai Institute, located on Quadra Island / Calvert Island in beautiful British Columbia! My passion lies in studying marine ecosystems, with a particular interest in the role that marine mammals play in them, and in quantitative analyses. I hold an M.Sc in Biology from the Wageningen University and Research Center in the Netherlands, with a specialization in Marine Biology.</description>
     </item>
     
     <item>
