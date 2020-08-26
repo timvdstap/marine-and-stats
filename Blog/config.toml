@@ -49,7 +49,3 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     height = 100
     alt = "Logo"
 
-# I'd like to include a header image for the "Home" page
-[params.header]
-    enable = true   
-    images = "/images/breaching_sperm_whale_calf.png"
