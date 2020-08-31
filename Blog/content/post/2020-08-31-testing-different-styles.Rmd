@@ -1,0 +1,8 @@
+---
+title: Testing different styles
+author: Tim van der Stap
+date: '2020-08-31'
+slug: testing-different-styles
+categories: []
+tags: []
+---
