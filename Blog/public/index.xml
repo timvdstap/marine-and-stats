@@ -26,7 +26,7 @@
       <pubDate>Mon, 31 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/08/31/testing-different-styles/</guid>
-      <description>Heading level 1This is a paragraph.Heading level 2And this is another paragraph. I wrote this is in the .Rmd file, not directly in the .html file!</description>
+      <description>Heading level 1This is a paragraph.Heading level 2And this is another paragraph. I wrote this is in the .Rmd file, not directly in the .html file! Writing it directly in the .Rmd file allows you to see it in the &#34;Viewer&#34; when you serve_site(), if you make the changes in the .html file these don&#39;t show up there.  Heading 3 Interesting, heading 3 is significantly smaller than heading 2, but heading 2 doesn&#39;t seem to be any smaller than heading 1.</description>
     </item>
     
     <item>
