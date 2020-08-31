@@ -55,8 +55,9 @@ Janitor packageThe first package I’d like to explore and discuss is the janit
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
       <guid>/about/</guid>
-      <description>This is a &amp;ldquo;hello world&amp;rdquo; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.
-Making edits - so this is where personal &amp;ldquo;About&amp;rdquo; information of the author of the website [me!] would be presented?</description>
+      <description>Hi everyone!
+Welcome to my website! My name is Tim van der Stap, and I work as a Marine Data Scientist at the Hakai Institute, located on Quadra Island in beautiful British Columbia. At the Hakai Institute I am mainly involved in their Juvenile Salmon Program and as a Data Scientist for the International Year of the Salmon (IYS) Program.
+A little bit about myself: I am extremely interested in the marine environment and it&amp;rsquo;s wildlife, and particularly passionate about whales and dolphins and how they function within the marine environment.</description>
     </item>
     
     <item>
