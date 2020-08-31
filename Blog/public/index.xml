@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>A Hugo website</title>
+    <title>My personal website</title>
     <link>/</link>
-    <description>Recent content on A Hugo website</description>
+    <description>Recent content on My personal website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 24 Aug 2020 00:00:00 +0000</lastBuildDate>
@@ -37,51 +37,6 @@ Janitor packageThe first package I’d like to explore and discuss is the janit
       
       <guid>/2020/08/21/the-joys-of-joining/</guid>
       <description>The joys of mergingI am almost afraid to admit that for the longest time I have been struggling with what seems like one of the more basic components of R and data wrangling: merging/joining or binding rows/columns of multiple dataframes. Especially recently, when I had to compare and QC eventDates and times between two datasets was I struggling, and I feel like it took me longer than expected – and this was not the first time this happened.</description>
-    </item>
-    
-    <item>
-      <title>Fourth attempt</title>
-      <link>/2020/05/26/fourth-attempt/</link>
-      <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/05/26/fourth-attempt/</guid>
-      <description>Fourth attempt at personal blog</description>
-    </item>
-    
-    <item>
-      <title>Sixth attempt?</title>
-      <link>/2020/05/26/sixth-attempt/</link>
-      <pubDate>Tue, 26 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/05/26/sixth-attempt/</guid>
-      <description>Another attempt, not sure why it’s not working…</description>
-    </item>
-    
-    <item>
-      <title>Second test</title>
-      <link>/2020/05/25/second-test/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/05/25/second-test/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Testing</title>
-      <link>/2020/05/25/what-is-slug/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/05/25/what-is-slug/</guid>
-      <description>Trying to figure out what slug is?</description>
-    </item>
-    
-    <item>
-      <title>Third attempt</title>
-      <link>/2020/05/25/third-attempt/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/05/25/third-attempt/</guid>
-      <description>Lalala</description>
     </item>
     
     <item>
