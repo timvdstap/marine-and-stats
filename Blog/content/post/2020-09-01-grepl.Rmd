@@ -1,0 +1,10 @@
+---
+title: 'Grepl '
+author: Tim van der Stap
+date: '2020-09-01'
+slug: grepl
+categories:
+  - R
+  - Patterns
+tags: []
+---
