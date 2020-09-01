@@ -1,5 +1,5 @@
 ---
-title: 'Grepl '
+title: 'Grepl and gsub'
 author: Tim van der Stap
 date: '2020-09-01'
 slug: grepl
@@ -8,3 +8,38 @@ categories:
   - Patterns
 tags: []
 ---
+
+In this blog post I'd like to talk about the `grep` and `grepl` function, both found in base R (i.e. you don't have to install a package for it) and both of which are extremely useful for pattern matching and replacement. When it comes to replacement, I will also discuss the `sub()` and `gsub()` functions. The main difference between the two grepl functions, is that the `grepl()` function returns a logical vector indicating which element of a character vector contains the match , whereas `grep()` returns the index. Hence the name: **grep l**ogical. 
+
+The `grepl()` function searches for a pattern and then returns a logical vector. The general format is `grepl(pattern, x). Let's create an example vector:
+
+``` {r grepl, eval = FALSE}
+string <- c("FUN", "JOY", "HAPPY", "EXCITED", "OVER THE MOON", "JUMPING-FOR-JOY", "HEUJ")
+```
+
+Using the `grepl` function, we can see which ones contain the letter **J**:
+
+``` {r, eval = TRUE}
+grepl("J", string)
+```
+
+If we want to select just the items that **start** with a **J**, we have to add in ^ (a raise-to symbol) in the pattern name. On the other hand, items that **finish** with a **J**, the pattern in the brackets has to be followed by a $ symbol:
+
+``` {r, eval = TRUE}
+grepl("^J", string) # Elements that start with J
+grepl("J$", string) # Elements that end with J
+```
+
+Now say that you want to replace every element that contains the letter **J** with "Actually just ok". In that case, it doesn't matter whether you use the `grep()` or `grepl()` function, and you could use something along the lines of:
+
+``` {r, eval = TRUE}
+string[grepl("J", string)] <- "Actually just ok?"
+```
+
+However, when it comes replacing characters in a string, I would prefer to use either `sub()` or `gsub()`, both of which are in base R as well. THe main difference between these two is that `sub()` replaces only the first occurrence of a pattern specified, whereas `gsub()` replaces all occurrences. I don't think I've ever had to use `sub()` over `gsub()` but there ya go. 
+
+For example, if in the original string we wanted to substitute the spacing between words with hyphens, we would do the following:
+``` {r, eval = TRUE}
+string <- c("FUN", "JOY", "HAPPY", "EXCITED", "OVER THE MOON", "JUMPING-FOR-JOY", "HEUJ")
+string <- gsub(" ","-", string)
+```
