@@ -13,7 +13,7 @@ In this blog post I'd like to talk about the `grep` and `grepl` function, both f
 
 The `grepl()` function searches for a pattern and then returns a logical vector. The general format is `grepl(pattern, x). Let's create an example vector:
 
-``` {r grepl, eval = FALSE}
+``` {r grepl, eval = TRUE}
 string <- c("FUN", "JOY", "HAPPY", "EXCITED", "OVER THE MOON", "JUMPING-FOR-JOY", "HEUJ")
 ```
 
@@ -43,3 +43,34 @@ For example, if in the original string we wanted to substitute the spacing betwe
 string <- c("FUN", "JOY", "HAPPY", "EXCITED", "OVER THE MOON", "JUMPING-FOR-JOY", "HEUJ")
 string <- gsub(" ","-", string)
 ```
+
+Few interesting things to note when it comes to replacing or substituting using gsub (special shout-out to PKumar on StackOverflow, [here](https://stackoverflow.com/questions/51231386/i-want-to-grep-gsub-empty-space-and-a-hyphen-and-replace-that-with-na-in-r))
+
+* \\\\s : means space;
+* \+ : means 1 or more character
+* ^ : means the start of a string
+* $ : means the end of a string
+* | : means **OR**. 
+* x.* : means that you want to replace everything after the x as well.
+* ^$ : means that the start and end are together, implying there is nothing in between (i.e. if a value is ''). 
+
+If you want to replace a question mark with an exclamation mark, do it like so:
+
+``` {r, eval = TRUE}
+string <- c("FUN", "JOY", "HAPPY", "EXCITED", "OVER THE MOON", "JUMPING-FOR-JOY", "HEUJ")
+string[grepl("J", string)] <- "Actually just ok?"
+string <- gsub("\\?", "!", string)
+```
+
+As the question mark is a special character, you have to indicate to _R_ that it has to take this literally, and therefore it has to be preceded by two backslashes. Otherwise you would get the following output, where it doesn't recognize the question mark as a special character and the pattern it searches for is basically "". 
+
+``` {r, eval = TRUE}
+string <- c("FUN", "JOY", "HAPPY", "EXCITED", "OVER THE MOON", "JUMPING-FOR-JOY", "HEUJ")
+string[grepl("J", string)] <- "Actually just ok?"
+string <- gsub("?", "!", string)
+print(string)
+```
+
+Not what we want....
+
+There is way more interesting syntax when it comes to using `gsub()`, look for example [here](http://www.endmemo.com/r/gsub.php). 

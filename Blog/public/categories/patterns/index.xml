@@ -12,12 +12,12 @@
     
     
     <item>
-      <title>Grepl </title>
+      <title>Grepl and gsub</title>
       <link>/2020/09/01/grepl/</link>
       <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/2020/09/01/grepl/</guid>
-      <description></description>
+      <description>In this blog post I’d like to talk about the grep and grepl function, both found in base R (i.e. you don’t have to install a package for it) and both of which are extremely useful for pattern matching and replacement. When it comes to replacement, I will also discuss the sub() and gsub() functions. The main difference between the two grepl functions, is that the grepl() function returns a logical vector indicating which element of a character vector contains the match , whereas grep() returns the index.</description>
     </item>
     
   </channel>

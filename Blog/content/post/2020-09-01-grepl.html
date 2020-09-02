@@ -1,5 +1,5 @@
 ---
-title: 'Grepl '
+title: 'Grepl and gsub'
 author: Tim van der Stap
 date: '2020-09-01'
 slug: grepl
@@ -11,4 +11,45 @@ tags: []
 
 
 
-
+<p>In this blog post I’d like to talk about the <code>grep</code> and <code>grepl</code> function, both found in base R (i.e. you don’t have to install a package for it) and both of which are extremely useful for pattern matching and replacement. When it comes to replacement, I will also discuss the <code>sub()</code> and <code>gsub()</code> functions. The main difference between the two grepl functions, is that the <code>grepl()</code> function returns a logical vector indicating which element of a character vector contains the match , whereas <code>grep()</code> returns the index. Hence the name: <strong>grep l</strong>ogical.</p>
+<p>The <code>grepl()</code> function searches for a pattern and then returns a logical vector. The general format is `grepl(pattern, x). Let’s create an example vector:</p>
+<pre class="r"><code>string &lt;- c(&quot;FUN&quot;, &quot;JOY&quot;, &quot;HAPPY&quot;, &quot;EXCITED&quot;, &quot;OVER THE MOON&quot;, &quot;JUMPING-FOR-JOY&quot;, &quot;HEUJ&quot;)</code></pre>
+<p>Using the <code>grepl</code> function, we can see which ones contain the letter <strong>J</strong>:</p>
+<pre class="r"><code>grepl(&quot;J&quot;, string)</code></pre>
+<pre><code>## [1] FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE</code></pre>
+<p>If we want to select just the items that <strong>start</strong> with a <strong>J</strong>, we have to add in ^ (a raise-to symbol) in the pattern name. On the other hand, items that <strong>finish</strong> with a <strong>J</strong>, the pattern in the brackets has to be followed by a $ symbol:</p>
+<pre class="r"><code>grepl(&quot;^J&quot;, string) # Elements that start with J</code></pre>
+<pre><code>## [1] FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE</code></pre>
+<pre class="r"><code>grepl(&quot;J$&quot;, string) # Elements that end with J</code></pre>
+<pre><code>## [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</code></pre>
+<p>Now say that you want to replace every element that contains the letter <strong>J</strong> with “Actually just ok”. In that case, it doesn’t matter whether you use the <code>grep()</code> or <code>grepl()</code> function, and you could use something along the lines of:</p>
+<pre class="r"><code>string[grepl(&quot;J&quot;, string)] &lt;- &quot;Actually just ok?&quot;</code></pre>
+<p>However, when it comes replacing characters in a string, I would prefer to use either <code>sub()</code> or <code>gsub()</code>, both of which are in base R as well. THe main difference between these two is that <code>sub()</code> replaces only the first occurrence of a pattern specified, whereas <code>gsub()</code> replaces all occurrences. I don’t think I’ve ever had to use <code>sub()</code> over <code>gsub()</code> but there ya go.</p>
+<p>For example, if in the original string we wanted to substitute the spacing between words with hyphens, we would do the following:</p>
+<pre class="r"><code>string &lt;- c(&quot;FUN&quot;, &quot;JOY&quot;, &quot;HAPPY&quot;, &quot;EXCITED&quot;, &quot;OVER THE MOON&quot;, &quot;JUMPING-FOR-JOY&quot;, &quot;HEUJ&quot;)
+string &lt;- gsub(&quot; &quot;,&quot;-&quot;, string)</code></pre>
+<p>Few interesting things to note when it comes to replacing or substituting using gsub (special shout-out to PKumar on StackOverflow, <a href="https://stackoverflow.com/questions/51231386/i-want-to-grep-gsub-empty-space-and-a-hyphen-and-replace-that-with-na-in-r">here</a>)</p>
+<ul>
+<li>\\s : means space;</li>
+<li>+ : means 1 or more character</li>
+<li>^ : means the start of a string</li>
+<li>$ : means the end of a string</li>
+<li><div class="line-block">: means <strong>OR</strong>.</div></li>
+<li>x.* : means that you want to replace everything after the x as well.</li>
+<li>^$ : means that the start and end are together, implying there is nothing in between (i.e. if a value is ’’).</li>
+</ul>
+<p>If you want to replace a question mark with an exclamation mark, do it like so:</p>
+<pre class="r"><code>string &lt;- c(&quot;FUN&quot;, &quot;JOY&quot;, &quot;HAPPY&quot;, &quot;EXCITED&quot;, &quot;OVER THE MOON&quot;, &quot;JUMPING-FOR-JOY&quot;, &quot;HEUJ&quot;)
+string[grepl(&quot;J&quot;, string)] &lt;- &quot;Actually just ok?&quot;
+string &lt;- gsub(&quot;\\?&quot;, &quot;!&quot;, string)</code></pre>
+<p>As the question mark is a special character, you have to indicate to <em>R</em> that it has to take this literally, and therefore it has to be preceded by two backslashes. Otherwise you would get the following output, where it doesn’t recognize the question mark as a special character and the pattern it searches for is basically "".</p>
+<pre class="r"><code>string &lt;- c(&quot;FUN&quot;, &quot;JOY&quot;, &quot;HAPPY&quot;, &quot;EXCITED&quot;, &quot;OVER THE MOON&quot;, &quot;JUMPING-FOR-JOY&quot;, &quot;HEUJ&quot;)
+string[grepl(&quot;J&quot;, string)] &lt;- &quot;Actually just ok?&quot;
+string &lt;- gsub(&quot;?&quot;, &quot;!&quot;, string)
+print(string)</code></pre>
+<pre><code>## [1] &quot;!F!U!N!&quot;                             &quot;!A!c!t!u!a!l!l!y! !j!u!s!t! !o!k!?!&quot;
+## [3] &quot;!H!A!P!P!Y!&quot;                         &quot;!E!X!C!I!T!E!D!&quot;                    
+## [5] &quot;!O!V!E!R! !T!H!E! !M!O!O!N!&quot;         &quot;!A!c!t!u!a!l!l!y! !j!u!s!t! !o!k!?!&quot;
+## [7] &quot;!A!c!t!u!a!l!l!y! !j!u!s!t! !o!k!?!&quot;</code></pre>
+<p>Not what we want….</p>
+<p>There is way more interesting syntax when it comes to using <code>gsub()</code>, look for example <a href="http://www.endmemo.com/r/gsub.php">here</a>.</p>
